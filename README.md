@@ -2,6 +2,7 @@
 
 This microservice is the core operational hub, managing the lifecycle of both standard services and custom modification projects.
 
+[![Build and Test Project Service](https://github.com/TechTorque-2025/Project_Service/actions/workflows/buildtest.yaml/badge.svg)](https://github.com/TechTorque-2025/Project_Service/actions/workflows/buildtest.yaml)
 **Assigned Team:** Randitha, Aditha
 
 ### 🎯 Key Responsibilities
