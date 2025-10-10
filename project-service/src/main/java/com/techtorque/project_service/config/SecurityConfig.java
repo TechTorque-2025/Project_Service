@@ -1,4 +1,4 @@
-package com.techtorque.project_service.config; // <-- Change this package name for each service
+package com.techtorque.project_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+    // A more comprehensive whitelist for Swagger/OpenAPI, based on the auth-service config.
+    private static final String[] SWAGGER_WHITELIST = {
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/swagger-resources/**",
+        "/webjars/**",
+        "/api-docs/**"
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -23,14 +33,15 @@ public class SecurityConfig {
             // Set session management to STATELESS
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             
-            // --- ADD THESE TWO LINES ---
-            // Explicitly disable the form login page
+            // Explicitly disable form login and HTTP Basic authentication
             .formLogin(formLogin -> formLogin.disable())
-            // Explicitly disable HTTP Basic authentication
             .httpBasic(httpBasic -> httpBasic.disable())
             
             // Set up authorization rules
             .authorizeHttpRequests(authz -> authz
+                // Permit all requests to the Swagger UI and API docs paths
+                .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                
                 // All other requests must be authenticated
                 .anyRequest().authenticated()
             )
