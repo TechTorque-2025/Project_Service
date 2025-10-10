@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.techtorque.project_service.config.DatabasePreflightInitializer
