@@ -1,6 +1,7 @@
 package com.techtorque.project_service.controller;
 
-import com.techtorque.project_service.dto.*;
+import com.techtorque.project_service.dto.request.*;
+import com.techtorque.project_service.dto.response.*;
 import com.techtorque.project_service.entity.Project;
 import com.techtorque.project_service.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
