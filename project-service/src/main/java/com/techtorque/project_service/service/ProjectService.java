@@ -1,9 +1,9 @@
 package com.techtorque.project_service.service;
 
-import com.techtorque.project_service.dto.ProjectRequestDto;
-import com.techtorque.project_service.dto.QuoteDto;
-import com.techtorque.project_service.dto.RejectionDto;
-import com.techtorque.project_service.dto.ProgressUpdateDto;
+import com.techtorque.project_service.dto.request.ProjectRequestDto;
+import com.techtorque.project_service.dto.response.QuoteDto;
+import com.techtorque.project_service.dto.request.RejectionDto;
+import com.techtorque.project_service.dto.request.ProgressUpdateDto;
 import com.techtorque.project_service.entity.Project;
 import java.util.List;
 import java.util.Optional;
