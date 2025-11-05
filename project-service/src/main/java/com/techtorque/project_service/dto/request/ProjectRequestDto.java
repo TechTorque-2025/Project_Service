@@ -1,4 +1,4 @@
-package com.techtorque.project_service.dto;
+package com.techtorque.project_service.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

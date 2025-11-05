@@ -1,4 +1,4 @@
-package com.techtorque.project_service.dto;
+package com.techtorque.project_service.dto.response;
 
 import com.techtorque.project_service.entity.ProjectStatus;
 import lombok.AllArgsConstructor;

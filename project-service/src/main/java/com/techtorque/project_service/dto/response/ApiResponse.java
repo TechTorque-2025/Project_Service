@@ -1,4 +1,4 @@
-package com.techtorque.project_service.dto;
+package com.techtorque.project_service.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
