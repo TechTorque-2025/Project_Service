@@ -28,13 +28,13 @@ public class DataSeeder {
     private final InvoiceRepository invoiceRepository;
     private final QuoteRepository quoteRepository;
 
-    // These UUIDs should match the ones from the Authentication service
-    // TODO: Update these to match actual UUIDs from Auth service
-    private static final String CUSTOMER_1_ID = "customer-uuid-1";
-    private static final String CUSTOMER_2_ID = "customer-uuid-2";
-    private static final String EMPLOYEE_1_ID = "employee-uuid-1";
-    private static final String EMPLOYEE_2_ID = "employee-uuid-2";
-    private static final String ADMIN_ID = "admin-uuid-1";
+    // These should match the Auth service seeded USERNAMES (not UUIDs)
+    // The Gateway forwards X-User-Subject header with USERNAME values
+    private static final String CUSTOMER_1_ID = "customer";
+    private static final String CUSTOMER_2_ID = "testuser";
+    private static final String EMPLOYEE_1_ID = "employee";
+    private static final String EMPLOYEE_2_ID = "employee";
+    private static final String ADMIN_ID = "admin";
 
     @Bean
     @Profile("dev")
