@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,9 +25,14 @@ public class Project {
   @Column(nullable = false)
   private String vehicleId;
 
+  @Column(nullable = false)
+  private String projectType;
+
   @Lob
   @Column(nullable = false)
   private String description;
+
+  private String desiredCompletionDate;
 
   private BigDecimal budget; // Use BigDecimal for currency
 
