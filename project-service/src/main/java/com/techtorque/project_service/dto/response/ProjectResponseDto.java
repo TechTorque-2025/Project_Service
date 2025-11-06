@@ -17,7 +17,9 @@ public class ProjectResponseDto {
     private String id;
     private String customerId;
     private String vehicleId;
+    private String projectType;
     private String description;
+    private String desiredCompletionDate;
     private BigDecimal budget;
     private ProjectStatus status;
     private int progress;
