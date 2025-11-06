@@ -13,6 +13,8 @@ public interface StandardServiceService {
   StandardService createServiceFromAppointment(CreateServiceDto dto, String employeeId);
 
   List<StandardService> getServicesForCustomer(String customerId, String status);
+  
+  List<StandardService> getAllServices(); // For admin/employee to see all services
 
   Optional<StandardService> getServiceDetails(String serviceId, String userId, String userRole);
 

@@ -78,6 +78,13 @@ public class StandardServiceServiceImpl implements StandardServiceService {
   }
 
   @Override
+  @Transactional(readOnly = true)
+  public List<StandardService> getAllServices() {
+    log.info("Fetching all services (admin/employee access)");
+    return serviceRepository.findAll();
+  }
+
+  @Override
   public Optional<StandardService> getServiceDetails(String serviceId, String userId, String userRole) {
     log.info("Fetching service {} for user: {} with role: {}", serviceId, userId, userRole);
 
