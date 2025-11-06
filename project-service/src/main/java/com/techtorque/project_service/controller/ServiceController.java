@@ -42,11 +42,34 @@ public class ServiceController {
 
   @Operation(summary = "List services for the current customer")
   @GetMapping
-  @PreAuthorize("hasRole('CUSTOMER')")
+  @PreAuthorize("hasAnyRole('CUSTOMER', 'ADMIN', 'EMPLOYEE')")
   public ResponseEntity<ApiResponse> listCustomerServices(
-          @RequestHeader("X-User-Subject") String customerId,
+          @RequestHeader("X-User-Subject") String userId,
+          @RequestHeader("X-User-Roles") String roles,
           @RequestParam(required = false) String status) {
-    List<StandardService> services = standardServiceService.getServicesForCustomer(customerId, status);
+    
+    List<StandardService> services;
+    
+    // Admin and Employee can see all services
+    if (roles.contains("ADMIN") || roles.contains("EMPLOYEE")) {
+      services = standardServiceService.getAllServices();
+      // Apply status filter if provided
+      if (status != null && !status.isEmpty()) {
+        try {
+          com.techtorque.project_service.entity.ServiceStatus statusEnum = 
+              com.techtorque.project_service.entity.ServiceStatus.valueOf(status.toUpperCase());
+          services = services.stream()
+              .filter(s -> s.getStatus() == statusEnum)
+              .collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+          // Invalid status, ignore filter
+        }
+      }
+    } else {
+      // Customer sees only their own services
+      services = standardServiceService.getServicesForCustomer(userId, status);
+    }
+    
     List<ServiceResponseDto> response = services.stream()
             .map(this::mapToServiceResponseDto)
             .collect(Collectors.toList());

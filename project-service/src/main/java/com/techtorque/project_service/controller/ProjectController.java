@@ -43,9 +43,21 @@ public class ProjectController {
 
   @Operation(summary = "List projects for the current customer")
   @GetMapping
-  @PreAuthorize("hasRole('CUSTOMER')")
-  public ResponseEntity<ApiResponse> listCustomerProjects(@RequestHeader("X-User-Subject") String customerId) {
-    List<Project> projects = projectService.getProjectsForCustomer(customerId);
+  @PreAuthorize("hasAnyRole('CUSTOMER', 'ADMIN', 'EMPLOYEE')")
+  public ResponseEntity<ApiResponse> listCustomerProjects(
+          @RequestHeader("X-User-Subject") String userId,
+          @RequestHeader("X-User-Roles") String roles) {
+    
+    List<Project> projects;
+    
+    // Admin and Employee can see all projects
+    if (roles.contains("ADMIN") || roles.contains("EMPLOYEE")) {
+      projects = projectService.getAllProjects();
+    } else {
+      // Customer sees only their own projects
+      projects = projectService.getProjectsForCustomer(userId);
+    }
+    
     List<ProjectResponseDto> response = projects.stream()
             .map(this::mapToResponseDto)
             .collect(Collectors.toList());
