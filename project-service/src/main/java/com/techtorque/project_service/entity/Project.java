@@ -25,6 +25,8 @@ public class Project {
   @Column(nullable = false)
   private String vehicleId;
 
+  private String appointmentId; // Link to appointment if project was created from appointment booking
+
   @Column(nullable = false)
   private String projectType;
 
