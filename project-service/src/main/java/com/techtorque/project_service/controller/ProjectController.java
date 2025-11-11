@@ -145,13 +145,42 @@ public class ProjectController {
     return ResponseEntity.ok(ApiResponse.success("All projects retrieved successfully", response));
   }
 
+  @Operation(summary = "Approve a custom project request (admin only)")
+  @PostMapping("/{projectId}/approve")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<ApiResponse> approveProject(
+          @PathVariable String projectId,
+          @RequestHeader("X-User-Subject") String adminId) {
+
+    Project project = projectService.approveProject(projectId, adminId);
+    ProjectResponseDto response = mapToResponseDto(project);
+
+    return ResponseEntity.ok(ApiResponse.success("Project approved successfully", response));
+  }
+
+  @Operation(summary = "Reject a custom project request (admin only)")
+  @PostMapping("/{projectId}/admin/reject")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<ApiResponse> rejectProject(
+          @PathVariable String projectId,
+          @RequestParam(required = false) String reason,
+          @RequestHeader("X-User-Subject") String adminId) {
+
+    Project project = projectService.rejectProject(projectId, reason, adminId);
+    ProjectResponseDto response = mapToResponseDto(project);
+
+    return ResponseEntity.ok(ApiResponse.success("Project rejected successfully", response));
+  }
+
   // Helper method to map Entity to DTO
   private ProjectResponseDto mapToResponseDto(Project project) {
     return ProjectResponseDto.builder()
             .id(project.getId())
             .customerId(project.getCustomerId())
             .vehicleId(project.getVehicleId())
+            .projectType(project.getProjectType())
             .description(project.getDescription())
+            .desiredCompletionDate(project.getDesiredCompletionDate())
             .budget(project.getBudget())
             .status(project.getStatus())
             .progress(project.getProgress())

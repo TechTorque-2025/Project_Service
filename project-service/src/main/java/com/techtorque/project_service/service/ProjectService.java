@@ -25,4 +25,8 @@ public interface ProjectService {
   Project updateProgress(String projectId, ProgressUpdateDto dto);
 
   List<Project> getAllProjects();
+
+  Project approveProject(String projectId, String adminId);
+
+  Project rejectProject(String projectId, String reason, String adminId);
 }
