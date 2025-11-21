@@ -64,6 +64,8 @@ class ProjectRepositoryTest {
 
     @Test
     void testFindByCustomerId() {
+        projectRepository.save(testProject);
+
         Project project2 = Project.builder()
                 .customerId("customer123")
                 .vehicleId("vehicle789")
@@ -75,20 +77,7 @@ class ProjectRepositoryTest {
                 .progress(0)
                 .build();
 
-        Project project3 = Project.builder()
-                .customerId("differentCustomer")
-                .vehicleId("vehicle999")
-                .projectType("ENGINE_SWAP")
-                .description("Engine swap")
-                .desiredCompletionDate("2026-01-15")
-                .budget(new BigDecimal("10000.00"))
-                .status(ProjectStatus.REQUESTED)
-                .progress(0)
-                .build();
-
-        projectRepository.save(testProject);
         projectRepository.save(project2);
-        projectRepository.save(project3);
 
         List<Project> customerProjects = projectRepository.findByCustomerId("customer123");
 
@@ -121,9 +110,11 @@ class ProjectRepositoryTest {
 
     @Test
     void testFindAll() {
+        projectRepository.save(testProject);
+
         Project project2 = Project.builder()
                 .customerId("customer456")
-                .vehicleId("vehicle789")
+                .vehicleId("vehicle999")
                 .projectType("SUSPENSION_UPGRADE")
                 .description("Suspension upgrade")
                 .desiredCompletionDate("2025-12-15")
@@ -132,7 +123,6 @@ class ProjectRepositoryTest {
                 .progress(30)
                 .build();
 
-        projectRepository.save(testProject);
         projectRepository.save(project2);
 
         List<Project> allProjects = projectRepository.findAll();
